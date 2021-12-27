@@ -1,5 +1,5 @@
 from bingo.Card import Card
-from bingo.Utils import PAPER_NUBERS
+from bingo.Utils import PAPER_NUMBERS
 from random import randrange, choice
 import numpy as np
 
@@ -7,7 +7,7 @@ import numpy as np
 class BingoPaper:
 
     def __init__(self):
-        self.paper_cards_numbers = PAPER_NUBERS
+        self.paper_cards_numbers = PAPER_NUMBERS
         self.cards = self.generate_cards()
 
     def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
