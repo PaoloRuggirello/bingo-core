@@ -13,26 +13,31 @@ class BingoPaper:
     def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
         for i in range(1, 7):
-            card_numbers = self.get_card_numbers()
+            card_numbers = self.get_card_numbers(missing_cards=6-i)
             cards.append(Card(i, card_numbers))
         return cards
 
-    def get_card_numbers(self):
-        card_columns = [[] for _ in range(9)]  # Creating empty array of 9 empty arrays
+    def get_card_numbers(self, missing_cards):
+        card = np.zeros((3, 9), dtype=int)
         for i in range(9):
-            random_index = choice(self.get_indexes_in_range_unit(i))
-            card_columns[i].append(self.paper_cards_numbers[random_index])
+            possible_indexes_for_range = self.get_indexes_in_range_unit(i)
+            random_index = choice(possible_indexes_for_range)
+            card[0, i] = self.paper_cards_numbers[random_index]
             self.paper_cards_numbers = np.delete(self.paper_cards_numbers, random_index)
 
         i = 0
         while i < 6:  # Each card has 15 numbers
             random_index = randrange(self.paper_cards_numbers.size)
             column_index = self.get_column_index(random_index)
-            if len(card_columns[column_index]) < 3:
-                card_columns[column_index].append(self.paper_cards_numbers[random_index])
-                self.paper_cards_numbers = np.delete(self.paper_cards_numbers, random_index)
-                i += 1
-        return card_columns
+            if len(self.get_indexes_in_range_unit(column_index)) > missing_cards:
+                column = card[:, column_index]
+                numbers_in_column = len(column[column > 0])
+                if numbers_in_column < 3:
+                    card[numbers_in_column, column_index] = self.paper_cards_numbers[random_index]
+                    self.paper_cards_numbers = np.delete(self.paper_cards_numbers, random_index)
+                    i += 1
+
+        return card
 
     def get_column_index(self, random_index):
         column_index = int(self.paper_cards_numbers[random_index] / 10)
