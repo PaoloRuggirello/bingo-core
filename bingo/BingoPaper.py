@@ -13,7 +13,14 @@ class BingoPaper:
 
     def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
-        for card_id, card_numbers in enumerate(self.generate_cards_numbers()):
+        generated_cards = []
+        generation_ok = False
+        while not generation_ok:
+            self.paper_cards_numbers = PAPER_NUMBERS
+            generated_cards = self.generate_cards_numbers()
+            generation_ok = all(np.count_nonzero(card) == 15 for card in generated_cards)
+
+        for card_id, card_numbers in enumerate(generated_cards):
             cards.append(Card(card_id + 1, card_numbers))
         return cards
 
@@ -24,8 +31,10 @@ class BingoPaper:
             self.set_number_per_unit(card)
             cards.append(card)
 
+        total_numbers = 36
         while len(self.paper_cards_numbers) > 0:
             number, self.paper_cards_numbers = np_pop(self.paper_cards_numbers)
+            total_numbers -= 1
             column_index = self.get_column_index(number)
 
             # Wants to know which cards can store the number
@@ -38,6 +47,7 @@ class BingoPaper:
                 random_number = int(self.get_random_number_from_second_third_rows(chosen_card_tuple[0]))
                 self.paper_cards_numbers = np.append(self.paper_cards_numbers, random_number)
                 chosen_card_tuple[0][chosen_card_tuple[0] == random_number] = 0
+                total_numbers += 1
 
             chosen_card = chosen_card_tuple[0]
             chosen_card_free_index = chosen_card_tuple[1]
@@ -77,7 +87,7 @@ class BingoPaper:
             total_numbers = np.count_nonzero(card)
             column = card[:, column_index]
             numbers_in_column = len(column[column > 0])  # Equals to first available row index
-            if (total_numbers < 15 or not check_total_numbers) and numbers_in_column < 3:
+            if (total_numbers < 15 or not check_total_numbers) and (total_numbers == 15 or check_total_numbers) and numbers_in_column < 3:
                 available_cards.append((card, numbers_in_column))
         return available_cards
 

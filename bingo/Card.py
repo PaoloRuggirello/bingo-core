@@ -15,19 +15,28 @@ class Card:
 
         for i in range(card_numbers.shape[0]):
             row = card_numbers[i, :]
+            row_below = card_numbers[i+1, :] if i == 1 else np.zeros(9)
+
+            exceed_last_row_intersection_indexes = [index for index, number in enumerate(row_below) if number > 0 and exceed_numbers[index]]
+
+            for index in exceed_last_row_intersection_indexes:
+                row[index] = exceed_numbers[index].pop()
+
             not_zero_indexes = np.where(row > 0)[0]
 
             if len(not_zero_indexes) > 5:
-                changable_indexes = np.delete(not_zero_indexes, full_columns_indexes)
-                already_stored_indexes = [index for index, value in enumerate(changable_indexes)
+                changeable_indexes = np.delete(not_zero_indexes, full_columns_indexes)
+                already_stored_indexes = [index for index, value in enumerate(changeable_indexes)
                                           if exceed_numbers[value]]
-                changable_indexes = np.delete(changable_indexes, already_stored_indexes)
-                n_col_to_keep = 5 - len(full_columns_indexes) - len(already_stored_indexes)
-                for _ in range(n_col_to_keep):
-                    random_index = randrange(len(changable_indexes))
-                    changable_indexes = np.delete(changable_indexes, random_index)
+                intersection_with_below = [index for index, value in enumerate(changeable_indexes) if row_below[value] > 0]
 
-                for j in changable_indexes:
+                changeable_indexes = np.delete(changeable_indexes, already_stored_indexes + intersection_with_below)
+                n_col_to_keep = 5 - len(full_columns_indexes) - len(already_stored_indexes) - len(intersection_with_below)
+                for _ in range(n_col_to_keep):
+                    random_index = randrange(len(changeable_indexes))
+                    changeable_indexes = np.delete(changeable_indexes, random_index)
+
+                for j in changeable_indexes:
                     exceed_numbers[j].append(card_numbers[i][j])
                     card_numbers[i][j] = 0
 
