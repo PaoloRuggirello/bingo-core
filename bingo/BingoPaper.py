@@ -12,15 +12,9 @@ class BingoPaper:
         self.cards = self.generate_cards()
 
     def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
+        print("generating new set of cards")
         cards = []
-        generated_cards = []
-        generation_ok = False
-        while not generation_ok:
-            self.paper_cards_numbers = PAPER_NUMBERS
-            generated_cards = self.generate_cards_numbers()
-            generation_ok = all(np.count_nonzero(card) == 15 for card in generated_cards)
-
-        for card_id, card_numbers in enumerate(generated_cards):
+        for card_id, card_numbers in enumerate(self.generate_cards_numbers()):
             cards.append(Card(card_id + 1, card_numbers))
         return cards
 
@@ -86,9 +80,10 @@ class BingoPaper:
         for card in all_cards:
             total_numbers = np.count_nonzero(card)
             column = card[:, column_index]
-            numbers_in_column = len(column[column > 0])  # Equals to first available row index
+            numbers_in_column = len(column[column > 0])
             if (total_numbers < 15 or not check_total_numbers) and (total_numbers == 15 or check_total_numbers) and numbers_in_column < 3:
-                available_cards.append((card, numbers_in_column))
+                first_available_index = np.where(column == 0)[0][0]
+                available_cards.append((card, first_available_index))
         return available_cards
 
     @staticmethod
