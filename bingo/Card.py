@@ -4,8 +4,8 @@ from random import randrange
 
 class Card:
 
-    def __init__(self, number, card_numbers):
-        self.number = number
+    def __init__(self, idx, card_numbers):
+        self.id = idx
         self.card_numbers = self.well_format_card_numbers(card_numbers)
 
     def well_format_card_numbers(self, card_numbers):
@@ -63,7 +63,7 @@ class Card:
         return full_columns_indexes
 
     def __str__(self) -> str:
-        card_str = f'card {self.number}: \n'
+        card_str = f'card {self.id}: \n'
         for row in self.card_numbers:
             card_str += str(row) + '\n'
         return card_str
