@@ -1,11 +1,15 @@
 import numpy as np
 from random import randrange
+from bingo.Utils import db
 
 
-class Card:
+class Card(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True)
+    card_numbers = db.Column('card_numbers', db.String(200), nullable=True)
+    paper_id = db.Column('paper_id', db.Integer, db.ForeignKey('bingo_paper.id'))
+    user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, number, card_numbers):
-        self.number = number
+    def __init__(self, card_numbers):
         self.card_numbers = self.well_format_card_numbers(card_numbers)
 
     def well_format_card_numbers(self, card_numbers):
@@ -62,12 +66,6 @@ class Card:
 
         return full_columns_indexes
 
-    def __str__(self) -> str:
-        card_str = f'card {self.number}: \n'
-        for row in self.card_numbers:
-            card_str += str(row) + '\n'
-        return card_str
-
     @staticmethod
     def set_90_at_corner_if_present(card_numbers):
         last_column = card_numbers[:, 8]
@@ -77,3 +75,10 @@ class Card:
             card_numbers[2, 8] = 90
             card_numbers[row_90, 8] = old_value_corner
         return card_numbers
+
+    def __str__(self) -> str:
+        card_str = f'card {self.id}: \n'
+        for row in self.card_numbers:
+            card_str += str(row) + '\n'
+        return card_str
+

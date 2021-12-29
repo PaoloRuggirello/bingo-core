@@ -1,21 +1,32 @@
 from bingo.Card import Card
-from bingo.Utils import PAPER_NUMBERS
+from bingo.Utils import PAPER_NUMBERS, db
 from random import choice
 import numpy as np
 from bingo.Utils import np_pop
+from sqlalchemy.orm import relationship
 
 
-class BingoPaper:
+class BingoPaper(db.Model):
+
+    id = db.Column('id', db.Integer, primary_key=True)
+    is_host = db.Column('is_host', db.Boolean, default=False)
+    room_id = db.Column('room_id', db.Integer, db.ForeignKey('room.id'))
+    cards = relationship("Card")
 
     def __init__(self):
         self.paper_cards_numbers = PAPER_NUMBERS
         self.cards = self.generate_cards()
 
+    def __init__(self, room_id):
+        self.paper_cards_numbers = PAPER_NUMBERS
+        self.cards = self.generate_cards()
+        self.room_id = room_id
+
     def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
         print("generating new set of cards")
         cards = []
         for card_id, card_numbers in enumerate(self.generate_cards_numbers()):
-            cards.append(Card(card_id + 1, card_numbers))
+            cards.append(Card(card_numbers))
         return cards
 
     def generate_cards_numbers(self):
