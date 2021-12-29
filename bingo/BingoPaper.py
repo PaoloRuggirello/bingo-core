@@ -7,15 +7,15 @@ from bingo.Utils import np_pop
 
 class BingoPaper:
 
-    def __init__(self):
+    def __init__(self, is_bank=False):
         self.paper_cards_numbers = PAPER_NUMBERS
-        self.cards = self.generate_cards()
+        self.cards = self.generate_cards(is_bank)
 
-    def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
-        print("generating new set of cards")
+    def generate_cards(self, is_bank=False):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
-        for card_id, card_numbers in enumerate(self.generate_cards_numbers()):
-            cards.append(Card(card_id + 1, card_numbers))
+        cards_numbers = self.generate_cards_numbers() if not is_bank else self.generate_bank_cards_numbers()
+        for card_id, card_numbers in enumerate(cards_numbers):
+            cards.append(Card(card_id + 1, card_numbers, is_bank=is_bank))
         return cards
 
     def generate_cards_numbers(self):
@@ -25,10 +25,8 @@ class BingoPaper:
             self.set_number_per_unit(card)
             cards.append(card)
 
-        total_numbers = 36
         while len(self.paper_cards_numbers) > 0:
             number, self.paper_cards_numbers = np_pop(self.paper_cards_numbers)
-            total_numbers -= 1
             column_index = self.get_column_index(number)
 
             # Wants to know which cards can store the number
@@ -41,13 +39,28 @@ class BingoPaper:
                 random_number = int(self.get_random_number_from_second_third_rows(chosen_card_tuple[0]))
                 self.paper_cards_numbers = np.append(self.paper_cards_numbers, random_number)
                 chosen_card_tuple[0][chosen_card_tuple[0] == random_number] = 0
-                total_numbers += 1
 
             chosen_card = chosen_card_tuple[0]
             chosen_card_free_index = chosen_card_tuple[1]
 
             chosen_card[chosen_card_free_index, column_index] = number
 
+        return cards
+
+    @staticmethod
+    def generate_bank_cards_numbers():
+        cards = []
+        for first_left_number in range(1, 91, 30):
+            card_left = np.array(
+                [[num + 10 * prod_10_factor
+                  for num in range(first_left_number, first_left_number + 5)]
+                    for prod_10_factor in range(3)], dtype=int)
+            card_right = np.array(
+                [[num + 10 * prod_10_factor
+                  for num in range(first_left_number + 5, first_left_number + 10)]
+                 for prod_10_factor in range(3)], dtype=int)
+            cards.append(card_left)
+            cards.append(card_right)
         return cards
 
     def set_number_per_unit(self, card):
@@ -81,7 +94,8 @@ class BingoPaper:
             total_numbers = np.count_nonzero(card)
             column = card[:, column_index]
             numbers_in_column = len(column[column > 0])
-            if (total_numbers < 15 or not check_total_numbers) and (total_numbers == 15 or check_total_numbers) and numbers_in_column < 3:
+            if (total_numbers < 15 or not check_total_numbers) and (
+                    total_numbers == 15 or check_total_numbers) and numbers_in_column < 3:
                 first_available_index = np.where(column == 0)[0][0]
                 available_cards.append((card, first_available_index))
         return available_cards
@@ -90,6 +104,5 @@ class BingoPaper:
     def get_random_number_from_second_third_rows(card):
         temp_card = np.zeros((2, 9))
         for i in range(1, 3):
-            temp_card[i-1, :] = card[i, :]
+            temp_card[i - 1, :] = card[i, :]
         return choice(temp_card[temp_card > 0])
-

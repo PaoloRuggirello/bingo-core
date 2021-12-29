@@ -4,9 +4,9 @@ from random import randrange
 
 class Card:
 
-    def __init__(self, number, card_numbers):
+    def __init__(self, number, card_numbers, is_bank=False):
         self.number = number
-        self.card_numbers = self.well_format_card_numbers(card_numbers)
+        self.card_numbers = self.well_format_card_numbers(card_numbers) if not is_bank else card_numbers
 
     def well_format_card_numbers(self, card_numbers):
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
