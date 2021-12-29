@@ -17,6 +17,11 @@ class BingoPaper(db.Model):
         self.paper_cards_numbers = PAPER_NUMBERS
         self.cards = self.generate_cards()
 
+    def __init__(self, room_id):
+        self.paper_cards_numbers = PAPER_NUMBERS
+        self.cards = self.generate_cards()
+        self.room_id = room_id
+
     def generate_cards(self):  # Each bingo paper must contain number from 1 to 90 without repetitions
         print("generating new set of cards")
         cards = []
