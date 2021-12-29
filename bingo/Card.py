@@ -1,12 +1,15 @@
 import numpy as np
 from random import randrange
+from bingo.Utils import db
 
 
-class Card:
+class Card(db.Model):
+    id = db.Column('id', db.Integer, primary_key=True)
+    card_numbers = db.Column('card_numbers', db.String(200), nullable=True)
 
     def __init__(self, idx, card_numbers):
         self.id = idx
-        self.card_numbers = self.well_format_card_numbers(card_numbers)
+        self.card_numbers = self.well_format_card_numbers(card_numbers).dumps()
 
     def well_format_card_numbers(self, card_numbers):
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
