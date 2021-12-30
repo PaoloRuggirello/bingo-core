@@ -1,5 +1,5 @@
 from bingo import Utils
-from bingo.BingoPaper import BingoPaper
+from bingo.base_model.BaseBingoPaper import BaseBingoPaper
 
 if __name__ == '__main__':
     print("Bingo-core online")
@@ -18,15 +18,7 @@ if __name__ == '__main__':
         exit()
 
     number_of_papers_for_gamers = Utils.get_number_of_papers_needed(sum(N_CARDS))
-    bingo_papers = [BingoPaper(is_bank=True)]
+    bingo_papers = [BaseBingoPaper(is_bank=True, id_paper=0)]
 
-    for _ in range(number_of_papers_for_gamers):
-        bingo_papers.append(BingoPaper())
-
-    for index, bingo_paper in enumerate(bingo_papers):
-        if index == 0:
-            print("Bank paper")
-        else:
-            print(f"Bingo Paper n° {index+1}")
-        for card in bingo_paper.cards:
-            print(card)
+    for i in range(number_of_papers_for_gamers):
+        bingo_papers.append(BaseBingoPaper(id_paper=i+1))
