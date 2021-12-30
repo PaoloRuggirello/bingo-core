@@ -1,8 +1,8 @@
 import numpy as np
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import random, string
-
+from math import ceil
+import random, string, argparse
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysql@localhost/bingo_db'
@@ -15,6 +15,25 @@ def np_pop(np_array):
     number = np_array[0]
     np_array = np.delete(np_array, 0)
     return number, np_array
+
+
+def initialize_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-g", "--gamers",
+                        help="Number of gamers for bingo",
+                        required=True,
+                        type=str,)
+    parser.add_argument("-n", "--number_of_cards",
+                        help="Number of cards for each player",
+                        type=str,
+                        required=True,
+                        nargs='+')
+    return parser.parse_args()
+
+
+def get_number_of_papers_needed(total_number_cards) -> int:
+    # one is for bank
+    return ceil(total_number_cards / 6)
 
 
 def get_random_room_code():
