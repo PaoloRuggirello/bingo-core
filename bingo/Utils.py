@@ -32,7 +32,6 @@ def initialize_parser():
 
 
 def get_number_of_papers_needed(total_number_cards) -> int:
-    # one is for bank
     return ceil(total_number_cards / 6)
 
 
@@ -40,3 +39,6 @@ def get_random_room_code():
     random_code = ''.join(random.choices(string.ascii_letters + string.digits, k=5)).upper()
     return random_code
 
+
+def create_dict_num_and_extracted(number) -> dict:
+    return {'number': number, 'extracted': False}
