@@ -1,6 +1,13 @@
 import numpy as np
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 from math import ceil
-import argparse
+import random, string, argparse
+
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysql@localhost/bingo_db'
+db = SQLAlchemy(app)
 
 PAPER_NUMBERS = np.arange(90) + 1
 
@@ -28,3 +35,9 @@ def initialize_parser():
 def get_number_of_papers_needed(total_number_cards) -> int:
     # one is for bank
     return ceil(total_number_cards / 6)
+
+
+def get_random_room_code():
+    random_code = ''.join(random.choices(string.ascii_letters + string.digits, k=5)).upper()
+    return random_code
+
