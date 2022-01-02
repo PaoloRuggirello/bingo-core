@@ -6,6 +6,7 @@ import random, string, argparse
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysql@localhost/bingo_db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 PAPER_NUMBERS = np.arange(90) + 1
@@ -41,4 +42,4 @@ def get_random_room_code():
 
 
 def create_dict_num_and_extracted(number) -> dict:
-    return {number: False}
+    return {int(number): False}
