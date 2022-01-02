@@ -30,7 +30,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent"
     ],
-    packages=["bingo"],
+    packages=find_packages(),
     include_package_data=True,
     install_requires=["numpy==1.20.0"]
 )
