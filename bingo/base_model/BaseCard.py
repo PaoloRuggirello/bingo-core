@@ -1,12 +1,14 @@
 import numpy as np
 from random import randrange
+import bingo.Utils as Utils
 
 
 class BaseCard:
 
     def __init__(self, card_numbers, is_bank=False, id_card=0):
         self.id_card = id_card
-        self.card_numbers = self.well_format_card_numbers(card_numbers) if not is_bank else card_numbers
+        self.card_numbers = self.well_format_card_numbers(card_numbers) \
+            if not is_bank else self.get_np_array_dict_numbers(card_numbers)
 
     def well_format_card_numbers(self, card_numbers):
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
@@ -17,7 +19,8 @@ class BaseCard:
             row = card_numbers[i, :]
             row_below = card_numbers[i+1, :] if i == 1 else np.zeros(9)
 
-            exceed_last_row_intersection_indexes = [index for index, number in enumerate(row_below) if number > 0 and exceed_numbers[index]]
+            exceed_last_row_intersection_indexes = [index for index, number in enumerate(row_below)
+                                                    if number > 0 and exceed_numbers[index]]
 
             for index in exceed_last_row_intersection_indexes:
                 row[index] = exceed_numbers[index].pop()
@@ -50,7 +53,17 @@ class BaseCard:
                     card_numbers[i][random_col_number] = exceed_numbers[random_col_number].pop()
                     available_zero_indexes = np.delete(available_zero_indexes, random_index)
 
-        return card_numbers
+        card_numbers_dict = self.get_np_array_dict_numbers(card_numbers)
+
+        return card_numbers_dict
+
+    @staticmethod
+    def get_np_array_dict_numbers(card_numbers):
+        card_numbers_size = card_numbers.shape
+        return np.array(
+            [[Utils.create_dict_num_and_extracted(card_numbers[row][col])
+              for col in range(card_numbers_size[1])]
+                for row in range(card_numbers_size[0])], dtype=dict)
 
     @staticmethod
     def get_full_columns(card_numbers):

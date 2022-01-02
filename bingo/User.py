@@ -10,5 +10,5 @@ class User(db.Model, BaseUser):
     cards = relationship("Card")
 
     def __init__(self, nickname, room_id):
-        super().__init__(nickname)
+        super(BaseUser, self).__init__(nickname)
         self.room_id = room_id
