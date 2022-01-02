@@ -18,6 +18,13 @@ def np_pop(np_array):
     return number, np_array
 
 
+def np_pop_random(np_array):
+    random_index = random.randrange(0, len(np_array))
+    number = np_array[random_index]
+    np_array = np.delete(np_array, random_index)
+    return number, np_array
+
+
 def initialize_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument("-g", "--gamers",
