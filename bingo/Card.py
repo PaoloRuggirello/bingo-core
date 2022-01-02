@@ -9,6 +9,6 @@ class Card(db.Model, BaseCard):
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 
     def __init__(self, card_numbers, is_bank=False):
-        super(BaseCard, self).__init__(card_numbers, is_bank)
+        BaseCard.__init__(self, card_numbers, is_bank)
 
 

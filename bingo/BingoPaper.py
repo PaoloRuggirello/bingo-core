@@ -12,7 +12,7 @@ class BingoPaper(db.Model, BaseBingoPaper):
     cards = relationship("Card")
 
     def __init__(self, room_id, is_bank=False):
-        super(BaseBingoPaper, self).__init__(is_bank)
+        BaseBingoPaper.__init__(self, is_bank)
         self.room_id = room_id
 
     def generate_cards(self, is_bank=False):  # Each bingo paper must contain number from 1 to 90 without repetitions
