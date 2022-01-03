@@ -45,4 +45,3 @@ if __name__ == '__main__':
         bingo_papers.append(BaseBingoPaper(id_paper=i+1))
 
     USERS = get_users_with_cards_and_remove_unused_cards(bingo_papers[1:], N_CARDS)
-    print("End")
