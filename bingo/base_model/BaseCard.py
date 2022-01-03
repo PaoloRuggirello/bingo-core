@@ -1,14 +1,17 @@
 import numpy as np
 from random import randrange
 import bingo.Utils as Utils
+from bingo.Prize import Prize
 
 
 class BaseCard:
 
     def __init__(self, card_numbers, is_bank=False, id_card=0):
         self.id_card = id_card
+        self.is_bank = is_bank
         self.card_numbers = self.well_format_card_numbers(card_numbers) \
             if not is_bank else self.get_np_array_dict_numbers(card_numbers)
+        self.extracted_by_row = [0, 0, 0]
 
     def well_format_card_numbers(self, card_numbers):
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
@@ -57,6 +60,29 @@ class BaseCard:
 
         return card_numbers_dict
 
+    def set_extracted_and_check_win(self, new_number, current_prize):
+        is_present = is_winner = False
+        column_index = self.get_column_index(new_number, is_bank=self.is_bank)
+        row = 0
+        # check if number is present
+        while not is_present and row < self.card_numbers.shape[0]:
+            if new_number in self.card_numbers[row][column_index]:
+                is_present = True
+                self.card_numbers[row][column_index] = {new_number: True}
+                self.extracted_by_row[row] += 1
+            else:
+                row += 1
+
+        if is_present:
+            if current_prize == Prize.TOMBOLA.value:
+                extracted_numbers = sum(self.extracted_by_row)
+            else:
+                extracted_numbers = self.extracted_by_row[row]
+
+            is_winner = extracted_numbers == current_prize
+
+        return is_present, is_winner
+
     @staticmethod
     def get_np_array_dict_numbers(card_numbers):
         card_numbers_size = card_numbers.shape
@@ -85,8 +111,25 @@ class BaseCard:
             card_numbers[row_90, 8] = old_value_corner
         return card_numbers
 
+    @staticmethod
+    def get_column_index(number, is_bank=False):
+        if not is_bank:
+            column_index = int(number / 10)
+            return column_index - 1 if column_index == 9 else column_index
+        else:
+            unit_of_number = (number % 10) - 1
+            if unit_of_number == -1:
+                unit_of_number = 9
+            return unit_of_number if unit_of_number <= 4 else unit_of_number - 5
+
     def __str__(self) -> str:
         card_str = f'card {self.id_card}: \n'
         for row in self.card_numbers:
-            card_str += str(row) + '\n'
+            for num in row:
+                if list(num.values())[0]:
+                    card_str += '\033[4m' + str(list(num.keys())[0]) + '\033[0m  '
+                else:
+                    card_str += str(list(num.keys())[0]) + '  '
+
+            card_str += '\n'
         return card_str
