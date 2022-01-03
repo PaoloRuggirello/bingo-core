@@ -6,7 +6,7 @@ from math import ceil
 import random, string, argparse
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:mysql@localhost/bingo_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mysql:mysql@localhost/bingo_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = 'ChangeThisKey'  # TODO: Change the key
 db = SQLAlchemy(app)

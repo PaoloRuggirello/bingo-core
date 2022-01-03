@@ -32,5 +32,8 @@ setup(
     ],
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["numpy==1.20.0", "Flask-SQLAlchemy~=2.5.1", "pymysql"]
+    install_requires=["numpy==1.20.0",
+                      "Flask-SQLAlchemy~=2.5.1",
+                      "pymysql",
+                      "flask_socketio"]
 )
