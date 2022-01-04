@@ -39,8 +39,8 @@ def get_number_of_papers_needed(total_number_cards) -> int:
     return ceil(total_number_cards / 6)
 
 
-def get_random_room_code():
-    random_code = ''.join(random.choices(string.ascii_letters + string.digits, k=5)).upper()
+def get_random_room_code(k=5):
+    random_code = ''.join(random.choices(string.ascii_letters + string.digits, k)).upper()
     return random_code
 
 
