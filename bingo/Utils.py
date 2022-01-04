@@ -47,7 +47,7 @@ def get_number_of_papers_needed(total_number_cards) -> int:
 
 
 def get_random_room_code(k=5):
-    random_code = ''.join(random.choices(string.ascii_letters + string.digits, k)).upper()
+    random_code = ''.join(random.choices(string.ascii_letters + string.digits, k=k)).upper()
     return random_code
 
 

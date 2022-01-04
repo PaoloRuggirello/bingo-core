@@ -1,21 +1,19 @@
 import json
 import sqlalchemy
 from sqlalchemy.types import TypeDecorator
-import numpy as np
 
-SIZE = 400
+SIZE = 200
 
 
-class TextPickleType(TypeDecorator):
-
+class DBList(TypeDecorator):
     impl = sqlalchemy.Text(SIZE)
 
     def process_bind_param(self, value, dialect):
         if value is not None:
-            value = json.dumps(value.tolist())
+            value = json.dumps(value)
         return value
 
     def process_result_value(self, value, dialect):
         if value is not None:
-            value = np.array(json.loads(value))
+            value = json.loads(value)
         return value

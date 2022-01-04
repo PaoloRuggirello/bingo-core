@@ -1,11 +1,11 @@
 from bingo.Utils import db
 from bingo.base_model.BaseCard import BaseCard
-from bingo.TextPickleType import TextPickleType
+from bingo.NPArray import NPArray
 
 
 class Card(db.Model, BaseCard):
     id = db.Column('id', db.Integer, primary_key=True)
-    card_numbers = db.Column('card_numbers', TextPickleType(), nullable=True)
+    card_numbers = db.Column('card_numbers', NPArray(), nullable=True)
     paper_id = db.Column('paper_id', db.Integer, db.ForeignKey('bingo_paper.id'))
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
 
