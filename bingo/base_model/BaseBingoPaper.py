@@ -3,6 +3,7 @@ from random import choice
 import numpy as np
 from bingo.Utils import np_pop
 from bingo.base_model.BaseCard import BaseCard
+from bingo.Card import Card
 
 
 class BaseBingoPaper:
@@ -29,7 +30,7 @@ class BaseBingoPaper:
 
         while len(self.paper_cards_numbers) > 0:
             number, self.paper_cards_numbers = np_pop(self.paper_cards_numbers)
-            column_index = self.get_column_index(number)
+            column_index = BaseCard.get_column_index(number)
 
             # Wants to know which cards can store the number
             available_cards = self.get_cards_with_available_column(cards, column_index)
@@ -72,6 +73,17 @@ class BaseBingoPaper:
             card[0, i] = self.paper_cards_numbers[random_index]
             self.paper_cards_numbers = np.delete(self.paper_cards_numbers, random_index)
 
+    def get_cards_with_number_and_winner(self, new_number, current_prize):
+        cards_and_winner = dict()
+        for card in self.cards:
+            is_present, is_winner = card.set_extracted_and_check_win(new_number, current_prize)
+            if is_present:
+                if isinstance(card, Card):
+                    cards_and_winner[card.id] = is_winner
+                elif isinstance(card, BaseCard):
+                    cards_and_winner[card.id_card] = is_winner
+        return cards_and_winner
+
     def get_indexes_in_range_unit(self, range_unit):
         indexes = []
         for number_index, number in enumerate(self.paper_cards_numbers):
@@ -82,12 +94,6 @@ class BaseBingoPaper:
                 if int(number / 10) == range_unit or int(number / 10) == range_unit + 1:
                     indexes.append(number_index)
         return indexes
-
-    @staticmethod
-    def get_column_index(number):
-        column_index = int(number / 10)
-        column_index = column_index - 1 if column_index == 9 else column_index
-        return column_index
 
     @staticmethod
     def get_cards_with_available_column(all_cards, column_index, check_total_numbers=True):
