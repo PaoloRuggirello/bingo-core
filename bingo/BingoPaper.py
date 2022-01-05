@@ -1,4 +1,4 @@
-from bingo.Utils import db
+from bingo.Utils import db, generate_random_hex_color
 from sqlalchemy.orm import relationship
 from bingo.base_model.BaseBingoPaper import BaseBingoPaper
 from bingo.Card import Card
@@ -12,11 +12,11 @@ class BingoPaper(db.Model, BaseBingoPaper):
     cards = relationship("Card")
     color = db.Column('color', db.String(10))
 
-    def __init__(self, room_id, is_bank=False, color=None):
+    def __init__(self, room_id, is_bank=False):
         BaseBingoPaper.__init__(self, is_bank)
         self.room_id = room_id
         self.is_host = is_bank
-        self.color = color
+        self.color = generate_random_hex_color()
 
     def generate_cards(self, is_bank=False):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
