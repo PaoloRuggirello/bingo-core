@@ -4,6 +4,7 @@ import numpy as np
 from bingo.Utils import np_pop
 from bingo.base_model.BaseCard import BaseCard
 from bingo.Card import Card
+from bingo.Utils import db
 
 
 class BaseBingoPaper:

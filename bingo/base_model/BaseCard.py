@@ -11,7 +11,7 @@ class BaseCard:
         self.is_bank = is_bank
         self.card_numbers = self.well_format_card_numbers(card_numbers) \
             if not is_bank else self.get_np_array_dict_numbers(card_numbers)
-        self.extracted_by_row = [0, 0, 0]
+        self.extracted_by_row = np.zeros(3, dtype=np.int8)
 
     def well_format_card_numbers(self, card_numbers):
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
@@ -66,9 +66,9 @@ class BaseCard:
         row = 0
         # check if number is present
         while not is_present and row < self.card_numbers.shape[0]:
-            if new_number in self.card_numbers[row][column_index]:
+            if str(new_number) in self.card_numbers[row][column_index]:
                 is_present = True
-                self.card_numbers[row][column_index] = {new_number: True}
+                self.card_numbers[row][column_index] = {str(new_number): True}
                 self.extracted_by_row[row] += 1
             else:
                 row += 1

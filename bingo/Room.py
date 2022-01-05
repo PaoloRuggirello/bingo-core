@@ -10,6 +10,7 @@ class Room(db.Model):
     code = db.Column('code', db.String(5), unique=True)
     name = db.Column('name', db.String(20))
     extracted_numbers = db.Column('extracted_numbers', NPArray(), nullable=True)
+    current_prize_index = db.Column('current_prize_index', db.Integer)
     unique_code = db.Column('unique_code', db.String(6))
     papers = relationship("BingoPaper")
     users = relationship("User")
@@ -18,3 +19,4 @@ class Room(db.Model):
         self.name = name
         self.code = get_random_room_code()
         self.unique_code = unique_code
+        self.current_prize_index = 0

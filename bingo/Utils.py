@@ -4,6 +4,7 @@ from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from math import ceil
 import random, string, argparse
+from bingo.Prize import Prize
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://mysql:mysql@localhost/bingo_db'
@@ -13,6 +14,7 @@ db = SQLAlchemy(app)
 socketio = SocketIO(app)
 
 PAPER_NUMBERS = np.arange(90) + 1
+PRIZE_LIST = Prize.list()
 
 
 def np_pop(np_array):
