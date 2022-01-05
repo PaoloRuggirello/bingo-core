@@ -11,10 +11,10 @@ class BingoPaper(db.Model, BaseBingoPaper):
     room_id = db.Column('room_id', db.Integer, db.ForeignKey('room.id'))
     cards = relationship("Card")
 
-    def __init__(self, room_id, is_bank=False, is_host=False):
+    def __init__(self, room_id, is_bank=False):
         BaseBingoPaper.__init__(self, is_bank)
         self.room_id = room_id
-        self.is_host = is_host
+        self.is_host = is_bank
 
     def generate_cards(self, is_bank=False):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
