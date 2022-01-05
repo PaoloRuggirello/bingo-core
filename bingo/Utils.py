@@ -55,3 +55,7 @@ def get_random_room_code(k=5):
 
 def create_dict_num_and_extracted(number) -> dict:
     return {int(number): False}
+
+
+def generate_random_hex_color():
+    return "#{:06x}".format(random.randint(0, 0xFFFFFF))
