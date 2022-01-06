@@ -15,6 +15,8 @@ socketio = SocketIO(app)
 
 PAPER_NUMBERS = np.arange(90) + 1
 PRIZE_LIST = Prize.list()
+users_subscriptions = {}
+
 
 
 def np_pop(np_array):
