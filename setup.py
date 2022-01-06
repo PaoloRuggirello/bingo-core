@@ -37,5 +37,6 @@ setup(
                       "pymysql",
                       "flask_socketio==4.3.1",
                       "python-socketio==4.6.0",
-                      "python-engineio==3.13.2"]
+                      "python-engineio==3.13.2",
+                      "flask-cors"]
 )
