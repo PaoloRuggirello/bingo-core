@@ -4,3 +4,4 @@ Flask~=2.0.2
 SQLAlchemy~=1.4.29
 Flask-SQLAlchemy~=2.5.1
 flask_socketio
+flask-cors
