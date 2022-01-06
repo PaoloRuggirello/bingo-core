@@ -13,14 +13,14 @@ class BingoPaper(db.Model, BaseBingoPaper):
     color = db.Column('color', db.String(10))
 
     def __init__(self, room_id, is_bank=False):
-        BaseBingoPaper.__init__(self, is_bank)
+        self.color = generate_random_hex_color()
+        BaseBingoPaper.__init__(self, color=self.color, is_bank=is_bank)
         self.room_id = room_id
         self.is_host = is_bank
-        self.color = generate_random_hex_color()
 
-    def generate_cards(self, is_bank=False):  # Each bingo paper must contain number from 1 to 90 without repetitions
+    def generate_cards(self, is_bank=False, color=None):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
         cards_numbers = self.generate_cards_numbers() if not is_bank else self.generate_bank_cards_numbers()
         for card_numbers in cards_numbers:
-            cards.append(Card(card_numbers, is_bank=is_bank))
+            cards.append(Card(card_numbers, is_bank=is_bank, color=color))
         return cards

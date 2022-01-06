@@ -11,9 +11,10 @@ class Card(db.Model, BaseCard):
     user_id = db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
     extracted_by_row = db.Column('extracted_by_row', NPArray())
     is_bank = db.Column('is_bank', db.Boolean, default=False)
+    color = db.Column('color', db.String(10))
 
-    def __init__(self, card_numbers, is_bank=False):
-        BaseCard.__init__(self, card_numbers, is_bank)
+    def __init__(self, card_numbers, is_bank=False, color=None):
+        BaseCard.__init__(self, card_numbers, is_bank=is_bank, color=color)
         self.extracted_by_row = np.zeros(3)
 
 

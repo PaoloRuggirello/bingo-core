@@ -9,17 +9,17 @@ from bingo.Utils import db
 
 class BaseBingoPaper:
 
-    def __init__(self, is_bank=False, id_paper=0):
+    def __init__(self, color=None, is_bank=False, id_paper=0):
         self.paper_cards_numbers = PAPER_NUMBERS
         self.id_paper = id_paper
-        self.cards = self.generate_cards(is_bank)
+        self.cards = self.generate_cards(is_bank, color=color)
 
-    def generate_cards(self, is_bank=False):  # Each bingo paper must contain number from 1 to 90 without repetitions
+    def generate_cards(self, is_bank=False, color=None):  # Each bingo paper must contain number from 1 to 90 without repetitions
         cards = []
         cards_numbers = self.generate_cards_numbers() if not is_bank else self.generate_bank_cards_numbers()
         for i, card_numbers in enumerate(cards_numbers):
             id_card = (i + self.id_paper * 6) + 1
-            cards.append(BaseCard(card_numbers, is_bank=is_bank, id_card=id_card))
+            cards.append(BaseCard(card_numbers, is_bank=is_bank, id_card=id_card, color=color))
         return cards
 
     def generate_cards_numbers(self):

@@ -6,12 +6,13 @@ from bingo.Prize import Prize
 
 class BaseCard:
 
-    def __init__(self, card_numbers, is_bank=False, id_card=0):
+    def __init__(self, card_numbers, is_bank=False, id_card=0, color=None):
         self.id_card = id_card
         self.is_bank = is_bank
         self.card_numbers = self.well_format_card_numbers(card_numbers) \
             if not is_bank else self.get_np_array_dict_numbers(card_numbers)
         self.extracted_by_row = np.zeros(3, dtype=np.int8)
+        self.color = color
 
     def well_format_card_numbers(self, card_numbers):
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
