@@ -1,7 +1,6 @@
 from bingo.Utils import db
 from bingo.base_model.BaseCard import BaseCard
 from bingo.NPArray import NPArray
-import numpy as np
 
 
 class Card(db.Model, BaseCard):
@@ -15,6 +14,4 @@ class Card(db.Model, BaseCard):
 
     def __init__(self, card_numbers, is_bank=False, color=None):
         BaseCard.__init__(self, card_numbers, is_bank=is_bank, color=color)
-        self.extracted_by_row = np.zeros(3)
-
 

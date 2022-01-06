@@ -5,7 +5,7 @@ from enum import Enum
 
 class Prize(Enum):
     AMBO = 2
-    TERNO = 3
+    TERNA = 3
     QUATERNA = 4
     CINQUINA = 5
     TOMBOLA = 15
