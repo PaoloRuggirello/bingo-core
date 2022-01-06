@@ -67,7 +67,7 @@ class BaseCard:
         row = 0
         # check if number is present
         while not is_present and row < self.card_numbers.shape[0]:
-            if str(new_number) in self.card_numbers[row][column_index]:
+            if str(new_number) in map(lambda c: str(c), self.card_numbers[row][column_index]):
                 is_present = True
                 self.card_numbers[row][column_index] = {str(new_number): True}
                 self.extracted_by_row[row] += 1
