@@ -24,6 +24,8 @@ services:
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-time-zone=+01:00']
     networks:
       - bingo_net
+    cap_add:
+      - SYS_NICE
 
   bingo-be:
     restart: always
