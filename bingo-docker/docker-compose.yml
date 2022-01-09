@@ -1,10 +1,4 @@
 version: '3.7'
-
-networks:
-  bingo_net:
-    name: bingo_net
-    external: false
-
 services:
   database:
     image: library/mysql:latest
@@ -22,8 +16,6 @@ services:
     ports:
       - 55500:3306
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci','--default-time-zone=+01:00']
-    networks:
-      - bingo_net
     cap_add:
       - SYS_NICE
 
@@ -35,5 +27,9 @@ services:
       - 8080:5000
     depends_on:
       - database
-    networks:
-      - bingo_net
+
+  bingo-fe:
+    build: ../../bingo_fe/npm-web
+    container_name: bingo-fe
+    ports:
+      - 80:5555
