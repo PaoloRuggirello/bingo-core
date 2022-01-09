@@ -22,5 +22,5 @@ To build the library follow these step:
    > `pip install -r requirements.txt`
 3. The run the following command to build the library
    > `python3 setup.py sdist --dist-dir ../bingo-be/dist/`
-4. Now you can move to the root folder "Bingo" and run the following command to build the whole project:
+4. Now you can move in the 'docker-general' folder of this project and run the following command to build the whole project:
    > `docker-compose up`

@@ -27,7 +27,7 @@ services:
 
   bingo-be:
     restart: always
-    build: bingo-be/
+    build: ../../bingo-be
     container_name: bingo-be
     ports:
       - 8080:5000
