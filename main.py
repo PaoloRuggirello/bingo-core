@@ -5,6 +5,15 @@ from bingo.Prize import Prize
 
 
 def get_users_with_cards_and_remove_unused_cards(bingo_papers_for_users, n_cards_per_user) -> list:
+    """Assigns the cards to user and removes the unused cards from bingo papers
+
+        @type bingo_papers_for_users: list
+        @param bingo_papers_for_users: bingo papers with cards to be assign
+        @type n_cards_per_user: list
+        @param n_cards_per_user: list containing number of cards requested by each user
+        @rtype: list
+        @returns: users with cards assigned
+    """
     users = []
     paper_index = card_index = 0
     for index_user, n_cards in enumerate(n_cards_per_user):
@@ -22,6 +31,15 @@ def get_users_with_cards_and_remove_unused_cards(bingo_papers_for_users, n_cards
 
 
 def get_user_and_card_by_id_card(id_card, users) -> tuple:
+    """Finds the user and card by id card in users with cards assigned list
+
+        @type id_card: int
+        @param id_card: id card to be searched
+        @type users: list
+        @param users: list containing users and cards assigned
+        @rtype: tuple
+        @returns: user and card found
+    """
     for user in users:
         for card in user.user_cards:
             if card.id_card == id_card:

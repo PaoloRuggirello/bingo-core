@@ -62,6 +62,16 @@ class BaseCard:
         return card_numbers_dict
 
     def set_extracted_and_check_win(self, new_number, current_prize):
+        """Sets number extracted and returns if is present and if card wins prize.
+            After setting extracted_by_row is incremented and check for winner is done using this helper list.
+
+            @type new_number: int
+            @param new_number: number just extracted
+            @type current_prize: int
+            @param current_prize: number of checked values needed to win prize
+            @rtype: tuple
+            @returns: is present and is winner tuple
+        """
         is_present = is_winner = False
         column_index = self.get_column_index(new_number, is_bank=self.is_bank)
         row = 0
@@ -86,6 +96,13 @@ class BaseCard:
 
     @staticmethod
     def get_np_array_dict_numbers(card_numbers):
+        """Converts card numbers np.array of int in np.array of dict with extracted bool set first at False.
+
+            @type card_numbers: np.array
+            @param card_numbers: int matrix with cards number
+            @rtype: np.array
+            @returns: dict matrix with cards number and extracted False
+        """
         card_numbers_size = card_numbers.shape
         return np.array(
             [[Utils.create_dict_num_and_extracted(card_numbers[row][col])
@@ -94,6 +111,13 @@ class BaseCard:
 
     @staticmethod
     def get_full_columns(card_numbers):
+        """Searches for columns of card with no available space (3 values in column)
+
+            @type card_numbers: np.array
+            @param card_numbers: int matrix with cards number
+            @rtype: list
+            @returns: list of full column indexes
+        """
         full_columns_indexes = []
         for i in range(card_numbers.shape[1]):
             column = card_numbers[:, i]
@@ -104,6 +128,13 @@ class BaseCard:
 
     @staticmethod
     def set_90_at_corner_if_present(card_numbers):
+        """If 90 is present in card, set it to right bottom corner and swap position with number in that place
+
+            @type card_numbers: np.array
+            @param card_numbers: int matrix with cards number
+            @rtype: np.array
+            @returns: int matrix with cards number and 90 at right bottom corner if present
+        """
         last_column = card_numbers[:, 8]
         if 90 in last_column:
             row_90 = np.where(last_column == 90)[0][0]
@@ -114,6 +145,16 @@ class BaseCard:
 
     @staticmethod
     def get_column_index(number, is_bank=False):
+        """Gets column index based on number passed. For not bank cards, it depends on ten of number. For bank ones,
+            it depends on unit digit.
+
+            @type number: int
+            @param number: number to check
+            @type is_bank: bool
+            @param is_bank: bank card or not (default is False)
+            @rtype: int
+            @returns: column index
+        """
         if not is_bank:
             column_index = int(number / 10)
             return column_index - 1 if column_index == 9 else column_index
