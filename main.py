@@ -47,6 +47,27 @@ def get_user_and_card_by_id_card(id_card, users) -> tuple:
     return None, None
 
 
+def print_current_situation(bank_bingo_paper, users):
+    """Prints all cards of the game
+
+        @type bank_bingo_paper: BaseBingoPaper
+        @param bank_bingo_paper: first bingo paper assigned to bank
+        @type users: list
+        @param users: list containing users and cards assigned
+        @rtype: None
+    """
+    print("========= ALL CARDS =========")
+    print("Bank Cards")
+    for c in bank_bingo_paper.cards:
+        print(c)
+    print()
+    for u in users:
+        print(u.nickname)
+        for c in u.user_cards:
+            print(c)
+        print()
+
+
 if __name__ == '__main__':
     GAMERS = None
     N_CARDS = None
@@ -69,7 +90,7 @@ if __name__ == '__main__':
     bingo_papers = [BaseBingoPaper(is_bank=True, id_paper=0)]
 
     for i in range(number_of_papers_for_gamers):
-        bingo_papers.append(BaseBingoPaper(id_paper=i+1))
+        bingo_papers.append(BaseBingoPaper(id_paper=i + 1))
 
     USERS = get_users_with_cards_and_remove_unused_cards(bingo_papers[1:], N_CARDS)
 
@@ -86,20 +107,25 @@ if __name__ == '__main__':
     exit_condition = False
 
     while not exit_condition:
-        input('Press ENTER to extract new number')
+        print()
+        show = input("Press just ENTER to extract new number or "
+                     "type SHOW and press ENTER to extract and see all cards: ")
+
         new_number, NUMBERS_NOT_EXTRACTED = Utils.np_pop_random(NUMBERS_NOT_EXTRACTED)
         card_and_winners = {}
         for paper in bingo_papers:
             card_and_winners.update(paper.get_cards_with_number_and_winner(new_number, prizes[prize_index]))
+        print()
         print(f'Extracted number is {new_number}')
         print('The number is present in those cards: ', end='')
         for id_card in card_and_winners:
             print(f'{id_card}, ', end='')
         print()
+        print()
         # getting possible winners
         winners = {k: v for k, v in card_and_winners.items() if v}
         if len(winners) > 0:
-            print(f'{Prize(prizes[prize_index]).name} winners:')
+            print(f'********* {Prize(prizes[prize_index]).name} WINNERS *********')
             for card_id in winners:
                 if card_id <= 6:
                     print('Bank')
@@ -110,5 +136,7 @@ if __name__ == '__main__':
                     print(card_winner)
             prize_index += 1
 
-        exit_condition = len(NUMBERS_NOT_EXTRACTED) == 0 or prize_index >= len(prizes)
+        if show is not None and show.upper() == "SHOW":
+            print_current_situation(bingo_papers[0], USERS)
 
+        exit_condition = len(NUMBERS_NOT_EXTRACTED) == 0 or prize_index >= len(prizes)
