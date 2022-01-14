@@ -67,8 +67,8 @@ def print_current_situation(bank_bingo_paper, users):
             print(c)
         print()
 
-def number_of_cards_lower_than_zero():
-    print('Number of cards must be greater than 0')
+def number_of_cards_lower_than_zero(subject):
+    print(f'{subject} must be greater than 0')
     exit()
 
 
@@ -77,8 +77,8 @@ if __name__ == '__main__':
     N_CARDS = None
     args = Utils.initialize_parser()
     try:
-        GAMERS = int(args.gamers)
-        N_CARDS = [int(n_cards) if int(n_cards) > 0 else number_of_cards_lower_than_zero() for n_cards in args.number_of_cards]
+        GAMERS = int(args.gamers) if int(args.gamers) > 0 else number_of_cards_lower_than_zero("Number of players")
+        N_CARDS = [int(n_cards) if int(n_cards) > 0 else number_of_cards_lower_than_zero("Number of cards") for n_cards in args.number_of_cards]
         if GAMERS != len(N_CARDS):
             print(f"Number of gamers ({GAMERS}) doesn't"
                   f' match length of number of cards ({len(N_CARDS)})')
