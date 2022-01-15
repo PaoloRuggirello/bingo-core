@@ -32,4 +32,4 @@ services:
     build: ../../bingo_fe/npm-web
     container_name: bingo-fe
     ports:
-      - 80:5555
+      - 81:5555
