@@ -25,7 +25,7 @@ To build the library and execute the web-app follow these step:
 4. Now you can move in the 'bingo-docker' folder of this project and perform the following command to run the project:
    > `docker-compose up`
    
-N.B The first time the 'docker-compose up' command build the project. 
+N.B The first time the 'docker-compose up' command will build the project. 
 
 If you want to stop running containers you can easily type (make sure you are in bingo-docker folder):
 > docker-compose stop
