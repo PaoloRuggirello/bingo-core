@@ -30,7 +30,7 @@ N.B The first time the 'docker-compose up' command will build the project.
 If you want to stop running containers you can easily type (make sure you are in bingo-docker folder):
 > docker-compose stop
 
-If you want to stop running containers and delete them or just want to delete these containers type:
+If you want to stop running containers and delete them or just want to delete these containers then type:
 > docker-compose down
 
    
