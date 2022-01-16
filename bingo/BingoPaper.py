@@ -5,7 +5,12 @@ from bingo.Card import Card
 
 
 class BingoPaper(db.Model, BaseBingoPaper):
+    """
+    This class describe the model of the bingo paper that is the main entity which contains 6 different cards with
+    numbers from 1 to 90
+    """
 
+    # The following rows are useful to tell to the orm how the BingoPaper fields must be stored in db
     id = db.Column('id', db.Integer, primary_key=True)
     is_host = db.Column('is_host', db.Boolean, default=False)
     room_id = db.Column('room_id', db.Integer, db.ForeignKey('room.id'))

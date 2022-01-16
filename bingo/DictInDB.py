@@ -6,6 +6,10 @@ SIZE = 400
 
 
 class DictInDB(TypeDecorator):
+    """
+        This class is used to store custom object in a mysql db.
+        It is useful to convert a dictionary in a text before the persistence and convert it back to a dict when a query is performed
+    """
     impl = sqlalchemy.Text(SIZE)
 
     def process_bind_param(self, value, dialect):

@@ -4,6 +4,11 @@ from bingo.NPArray import NPArray
 
 
 class Card(db.Model, BaseCard):
+    """
+    This is the entity describing the card entity, contains 15 random-numbers
+    """
+
+    # The following rows are useful to tell to the orm how the Card fields must be stored in db
     id = db.Column('id', db.Integer, primary_key=True)
     card_numbers = db.Column('card_numbers', NPArray(), nullable=True)
     paper_id = db.Column('paper_id', db.Integer, db.ForeignKey('bingo_paper.id'))

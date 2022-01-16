@@ -4,6 +4,12 @@ from bingo.NPArray import NPArray
 from bingo.DictInDB import DictInDB
 
 class Room(db.Model):
+    """
+    This class describe the room entity.
+    Any user must be part of a room to start playing
+    """
+
+    # The following rows are useful to tell to the orm how the Room fields must be stored in db
     id = db.Column('id', db.Integer, primary_key=True)
     code = db.Column('code', db.String(5), unique=True)
     name = db.Column('name', db.String(20))

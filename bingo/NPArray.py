@@ -7,6 +7,10 @@ SIZE = 400
 
 
 class NPArray(TypeDecorator):
+    """
+        This class is used to store custom object in a mysql db.
+        It is useful to convert a np.array in text before the persistence and convert it back to np.array when a query is performed
+    """
     impl = sqlalchemy.Text(SIZE)
 
     def process_bind_param(self, value, dialect):
