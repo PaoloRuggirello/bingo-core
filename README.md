@@ -22,9 +22,18 @@ To build the library and execute the web-app follow these step:
    > `pip install -r requirements.txt`
 3. The run the following command to build the library
    > `python3 setup.py sdist --dist-dir ../bingo-be/lib_dist/`
-4. Now you can move in the 'docker-general' folder of this project and run the following command to build the whole project:
+4. Now you can move in the 'bingo-docker' folder of this project and perform the following command to run the project:
    > `docker-compose up`
    
+N.B The first time the 'docker-compose up' command build the project. 
+
+If you want to stop running containers you can easily type (make sure you are in bingo-docker folder):
+> docker-compose stop
+
+If you want to stop running containers and delete them or just want to delete these containers type:
+> docker-compose down
+
+   
 The first run of docker-compose will show several errors of bingo-be that can't run, 
-wait until the db setup properly and then you can connect to the main page using 
+wait until the db setup properly, so you can connect to the main page using 
 localhost:80/ as url in the browser 
