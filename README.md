@@ -20,7 +20,7 @@ To build the library and execute the web-app follow these step:
    | -  bingo-fe
 2. Move inside bingo-core package, install requirements with the following command
    > `pip install -r requirements.txt`
-3. The run the following command to build the library
+3. Then run the following command to build the library
    > `python3 setup.py sdist --dist-dir ../bingo-be/lib_dist/`
 4. Now you can move in the 'bingo-docker' folder of this project and perform the following command to run the project:
    > `docker-compose up`
