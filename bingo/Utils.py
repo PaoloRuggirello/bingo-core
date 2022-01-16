@@ -10,7 +10,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://bingo:bingo@database/bingo_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SECRET_KEY'] = 'ChangeThisKey'  # TODO: Change the key
+app.config['SECRET_KEY'] = 'secretKey'
 db = SQLAlchemy(app)
 socketio = SocketIO(app, cors_allowed_origins='*')
 CORS(app)
