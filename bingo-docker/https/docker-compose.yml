@@ -28,8 +28,8 @@ services:
     depends_on:
       - database
 
-  bingo-fe:
+  bingo-fe-https:
     build: ../../../bingo_fe/npm-web-https
-    container_name: bingo-fe
+    container_name: bingo-fe-https
     ports:
       - 81:5555
