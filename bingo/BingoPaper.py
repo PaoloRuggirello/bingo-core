@@ -23,7 +23,7 @@ class BingoPaper(db.Model, BaseBingoPaper):
         self.room_id = room_id
         self.is_host = is_bank
 
-    def generate_cards(self, is_bank=False, color=None):  # Each bingo paper must contain number from 1 to 90 without repetitions
+    def generate_cards(self, is_bank=False, color=None):
         cards = []
         cards_numbers = self.generate_cards_numbers() if not is_bank else self.generate_bank_cards_numbers()
         for card_numbers in cards_numbers:

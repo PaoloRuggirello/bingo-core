@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#/Users/paoloruggirello/unicampus-projects/bingo-core/bingo</OriginalElement>
+  <nodes>
+    <node x="-323.1079834579359" y="729.2120430293211">bingo.DBList.DBList</node>
+    <node x="-349.1079834579359" y="-80.22144991305777">sqlalchemy.sql.type_api.TypeDecorator</node>
+    <node x="463.72964954677343" y="1468.7133281564093">bingo.Room.Room</node>
+    <node x="800.6715766561371" y="1534.7133281564093">bingo.Card.Card</node>
+    <node x="766.1715766561371" y="958.2459391216757">bingo.base_model.BaseCard.BaseCard</node>
+    <node x="54.326340829342485" y="1534.7133281564093">bingo.User.User</node>
+    <node x="-646.2159669158718" y="958.2459391216757">bingo.base_model.BaseBingoPaper.BaseBingoPaper</node>
+    <node x="-646.2159669158718" y="729.2120430293211">bingo.NPArray.NPArray</node>
+    <node x="6.3263408293424845" y="958.2459391216757">bingo.base_model.BaseUser.BaseUser</node>
+    <node x="322.39876836218036" y="-80.22144991305777">enum.Enum</node>
+    <node x="493.89876836218036" y="663.2120430293211">bingo.Prize.Prize</node>
+    <node x="-524.7159669158718" y="1534.7133281564093">bingo.BingoPaper.BingoPaper</node>
+    <node x="445.7239404329174" y="958.2459391216757">Model</node>
+    <node x="0.0" y="729.2120430293211">bingo.DictInDB.DictInDB</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="bingo.BingoPaper.BingoPaper" target="bingo.base_model.BaseBingoPaper.BaseBingoPaper" relationship="REALIZATION">
+      <point x="0.0" y="-126.0" />
+      <point x="0.0" y="148.0" />
+    </edge>
+    <edge source="bingo.BingoPaper.BingoPaper" target="Model" relationship="REALIZATION">
+      <point x="0.0" y="-126.0" />
+      <point x="-354.71596691587183" y="1299.0" />
+      <point x="487.2239404329174" y="1299.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="bingo.Prize.Prize" target="enum.Enum" relationship="REALIZATION">
+      <point x="0.0" y="-82.0" />
+      <point x="0.0" y="181.0" />
+    </edge>
+    <edge source="bingo.User.User" target="bingo.base_model.BaseUser.BaseUser" relationship="REALIZATION">
+      <point x="0.0" y="-82.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="bingo.NPArray.NPArray" target="sqlalchemy.sql.type_api.TypeDecorator" relationship="REALIZATION">
+      <point x="0.0" y="-49.0" />
+      <point x="-177.60798345793592" y="729.2120430293211" />
+      <point x="0.0" y="379.0" />
+    </edge>
+    <edge source="bingo.DBList.DBList" target="sqlalchemy.sql.type_api.TypeDecorator" relationship="REALIZATION">
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="379.0" />
+    </edge>
+    <edge source="bingo.Room.Room" target="Model" relationship="REALIZATION">
+      <point x="0.0" y="-192.0" />
+      <point x="586.7296495467734" y="1253.162642631016" />
+      <point x="487.2239404329174" y="1253.162642631016" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="bingo.Card.Card" target="bingo.base_model.BaseCard.BaseCard" relationship="REALIZATION">
+      <point x="0.0" y="-104.0" />
+      <point x="0.0" y="159.0" />
+    </edge>
+    <edge source="bingo.Card.Card" target="Model" relationship="REALIZATION">
+      <point x="0.0" y="-104.0" />
+      <point x="995.6715766561371" y="1289.0" />
+      <point x="487.2239404329174" y="1289.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="bingo.User.User" target="Model" relationship="REALIZATION">
+      <point x="0.0" y="-82.0" />
+      <point x="175.82634082934248" y="1309.0" />
+      <point x="487.2239404329174" y="1309.0" />
+      <point x="0.0" y="14.0" />
+    </edge>
+    <edge source="bingo.DictInDB.DictInDB" target="sqlalchemy.sql.type_api.TypeDecorator" relationship="REALIZATION">
+      <point x="0.0" y="-49.0" />
+      <point x="-177.60798345793592" y="729.2120430293211" />
+      <point x="0.0" y="379.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.36527081406607464" showDependencies="false" x="681.5090871061686" y="1105.30657747714" />
+  <SelectedNodes>
+    <node>bingo.Prize.Prize</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+</Diagram>
+
