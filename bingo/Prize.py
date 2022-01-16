@@ -1,8 +1,7 @@
 from enum import Enum
 
-# number related to prize is the number of True needed in card
 
-
+# number related to prize is the number of extracted numbers needed in a row card (o entire card for TOMBOLA)
 class Prize(Enum):
     AMBO = 2
     TERNA = 3

@@ -15,6 +15,13 @@ class BaseCard:
         self.color = color
 
     def well_format_card_numbers(self, card_numbers):
+        """Rearranges the cards in order to have in each row 5 numbers and 90 number in the right bottom corner.
+
+            @type card_numbers: np.array
+            @param card_numbers: int matrix with cards number
+            @rtype: np.array
+            @returns: dict matrix with cards number and extracted False
+        """
         card_numbers = self.set_90_at_corner_if_present(card_numbers)
         full_columns_indexes = self.get_full_columns(card_numbers)
         exceed_numbers = [[] for _ in range(9)]

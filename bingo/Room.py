@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from bingo.NPArray import NPArray
 from bingo.DictInDB import DictInDB
 
+
 class Room(db.Model):
     """
     This class describe the room entity.

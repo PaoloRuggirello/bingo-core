@@ -4,7 +4,6 @@ import numpy as np
 from bingo.Utils import np_pop
 from bingo.base_model.BaseCard import BaseCard
 from bingo.Card import Card
-from bingo.Utils import db
 
 
 class BaseBingoPaper:
@@ -14,7 +13,15 @@ class BaseBingoPaper:
         self.id_paper = id_paper
         self.cards = self.generate_cards(is_bank, color=color)
 
-    def generate_cards(self, is_bank=False, color=None):  # Each bingo paper must contain number from 1 to 90 without repetitions
+    def generate_cards(self, is_bank=False, color=None):
+        """Creates 6 cards (user or bank card) with 15 numbers each and no repetition.
+            @type is_bank: boolean
+            @param is_bank: indicates whether is a bank card (default is False)
+            @type color: string
+            @param color: hex random color string
+            @rtype: list
+            @returns: bingo cards generated
+        """
         cards = []
         cards_numbers = self.generate_cards_numbers() if not is_bank else self.generate_bank_cards_numbers()
         for i, card_numbers in enumerate(cards_numbers):
